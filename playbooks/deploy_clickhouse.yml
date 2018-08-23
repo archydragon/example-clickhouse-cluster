@@ -1,0 +1,30 @@
+- hosts: clickhouse_node
+  tasks:
+    - name: add Clickhouse apt repo key
+      apt_key:
+        keyserver: keyserver.ubuntu.com
+        id: E0C56BD4
+    - name: add Clickhouse apt repo
+      apt_repository:
+        repo: deb http://repo.yandex.ru/clickhouse/deb/stable/ main/
+        filename: clickhouse
+        state: present
+    - name: install Clickhouse
+      apt:
+        name: clickhouse-server
+        update_cache: yes
+        install_recommends: no
+      environment:
+        RUNLEVEL: 1
+    - name: create Clickhouse extended config directory
+      file:
+        path: /etc/clickhouse-server/conf.d
+        state: directory
+    - name: write Clickhouse config
+      template:
+        src: clickhouse.xml.j2
+        dest: /etc/clickhouse-server/conf.d/custom.xml
+    - name: start Clickhouse
+      service:
+        name: clickhouse-server
+        state: restarted

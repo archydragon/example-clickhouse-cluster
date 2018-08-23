@@ -1,0 +1,9 @@
+tickTime=2000
+dataDir=/var/lib/zookeeper
+clientPort=2181
+clientPortAddress={{hostvars[inventory_hostname].internal_ip}}
+initLimit=10
+syncLimit=5
+{% for host in groups['zk_node'] %}
+server.{{hostvars[host].item_id|int + 1}}={{hostvars[host].internal_ip}}:2888:3888
+{% endfor %}

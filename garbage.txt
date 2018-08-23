@@ -1,0 +1,26 @@
+Manage access tokens: https://cloud.digitalocean.com/account/api/tokens
+
+
+brew install terraform
+brew install terraform-inventory
+pip install -r requirements.txt
+
+export DIGITALOCEAN_TOKEN="`cat token.txt`"
+export TF_STATE=terraform/terraform.tfstate
+
+
+List SSH keys:
+http -j "https://api.digitalocean.com/v2/account/keys" \
+    "Authorization: Bearer $DIGITALOCEAN_TOKEN"
+
+List distribution images:
+http -j "https://api.digitalocean.com/v2/images?type=distribution&per_page=100" \
+    "Authorization: Bearer $DIGITALOCEAN_TOKEN"
+
+
+python inventory.py > inventory.json
+
+
+ansible zk_node -a 'uptime'
+
+ansible zk_node -a '/usr/share/zookeeper/bin/zkServer.sh status'

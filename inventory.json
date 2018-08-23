@@ -1,0 +1,46 @@
+{
+    "clickhouse_node": {
+        "hosts": {
+            "165.227.171.177": {
+                "hostname": "clickhouse-1", 
+                "internal_ip": "10.135.67.154", 
+                "item_id": "1"
+            }, 
+            "165.227.171.223": {
+                "hostname": "clickhouse-0", 
+                "internal_ip": "10.135.72.120", 
+                "item_id": "0"
+            }, 
+            "165.227.171.229": {
+                "hostname": "clickhouse-3", 
+                "internal_ip": "10.135.86.228", 
+                "item_id": "3"
+            }, 
+            "165.227.171.234": {
+                "hostname": "clickhouse-2", 
+                "internal_ip": "10.135.87.115", 
+                "item_id": "2"
+            }
+        }, 
+        "vars": {
+            "ansible_python_interpreter": "/usr/bin/python3"
+        }
+    }, 
+    "zk_node": {
+        "hosts": {
+            "139.59.152.250": {
+                "hostname": "zk-node-0", 
+                "internal_ip": "10.135.20.193", 
+                "item_id": "0"
+            }, 
+            "207.154.253.10": {
+                "hostname": "zk-node-1", 
+                "internal_ip": "10.135.73.87", 
+                "item_id": "1"
+            }
+        }, 
+        "vars": {
+            "ansible_python_interpreter": "/usr/bin/python3"
+        }
+    }
+}

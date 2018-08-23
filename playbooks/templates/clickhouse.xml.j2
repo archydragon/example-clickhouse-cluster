@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<yandex>
+
+    <zookeeper-servers>
+        {% for host in groups['zk_node'] %}
+        <node index="{{ hostvars[host].item_id|int + 1 }}">
+            <host>{{hostvars[host].internal_ip}}</host>
+            <port>2181</port>
+        </node>
+        {% endfor %}
+    </zookeeper-servers>
+
+    <macros>
+        <cluster>yap_cluster</cluster>
+        <shard>{{ hostvars[inventory_hostname].item_id|int + 1 }}</shard>
+        <replica>{{inventory_hostname}}</replica>
+    </macros>
+
+</yandex>

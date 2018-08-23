@@ -1,0 +1,24 @@
+- hosts: zk_node
+  tasks:
+    - name: install Zookeeper from Ubuntu repo
+      apt:
+        name: "{{item}}"
+        update_cache: yes
+        install_recommends: no
+      with_items:
+        - zookeeper
+        - zookeeperd
+      environment:
+        RUNLEVEL: 1
+    - name: write ZK myid
+      copy:
+        content: "{{ hostvars[inventory_hostname].item_id|int + 1 }}"
+        dest: /etc/zookeeper/conf/myid
+    - name: write ZK main config
+      template:
+        src: zoo.cfg.j2
+        dest: /etc/zookeeper/conf/zoo.cfg
+    - name: start ZK
+      service:
+        name: zookeeper
+        state: restarted
